@@ -1,4 +1,9 @@
 package com.event.blive.dao;
 
-public interface TicketRepository {
+import com.event.blive.model.Ticket;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface TicketRepository extends JpaRepository<Ticket, Integer> {
 }
