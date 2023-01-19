@@ -1,6 +1,8 @@
 package com.event.blive.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -8,35 +10,37 @@ import java.util.List;
 public class Artist {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String artistName;
-    private int genreId;
+
+
+    @OneToMany(mappedBy = "artistId", cascade = CascadeType.ALL)
+    private List<Event> events;
+
+
     @ManyToOne
-    private Event event;
-    @OneToMany
-    private List<Genre> genres;
+    @JoinColumn(name="genre_id")
+    private Genre genreId;
 
-    public List<Genre> getGenres() {
-        return genres;
+    public Genre getGenreId() {
+        return genreId;
     }
 
-    public void setGenres(List<Genre> genres) {
-        this.genres = genres;
-    }
-
-    public Event getEvent() {
-        return event;
-    }
-
-    public void setEvent(Event event) {
-        this.event = event;
+    public void setGenreId(Genre genreId) {
+        this.genreId = genreId;
     }
 
     public Artist() {
     }
 
-    public Artist(int id, String artistName, int genreId) {
+    public Artist(int id, String artistName) {
+        this.id = id;
+        this.artistName = artistName;
+       // this.genreId = genreId;
+    }
+
+    public Artist(int id, String artistName, Genre genreId) {
         this.id = id;
         this.artistName = artistName;
         this.genreId = genreId;
@@ -58,11 +62,5 @@ public class Artist {
         this.artistName = artistName;
     }
 
-    public int getGenreId() {
-        return genreId;
-    }
 
-    public void setGenreId(int genreId) {
-        this.genreId = genreId;
-    }
 }

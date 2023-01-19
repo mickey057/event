@@ -2,27 +2,28 @@ package com.event.blive.model;
 
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Venue {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String venue_name;
+    private String venueName;
     private String location;
     private String type;
     private int capacity;
 
-    @ManyToOne
-    private Event event;
+    @OneToMany(mappedBy = "venueId", cascade = CascadeType.ALL)
+    private List<Event> events;
 
     public Venue() {
     }
 
-    public Venue(int id, String venue_name, String location, String type, int capacity) {
+    public Venue(int id, String venueName, String location, String type, int capacity) {
         this.id = id;
-        this.venue_name = venue_name;
+        this.venueName = venueName;
         this.location = location;
         this.type = type;
         this.capacity = capacity;
@@ -36,12 +37,12 @@ public class Venue {
         this.id = id;
     }
 
-    public String getVenue_name() {
-        return venue_name;
+    public String getVenueName() {
+        return venueName;
     }
 
-    public void setVenue_name(String venue_name) {
-        this.venue_name = venue_name;
+    public void setVenueName(String venueName) {
+        this.venueName = venueName;
     }
 
     public String getLocation() {

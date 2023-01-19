@@ -1,24 +1,18 @@
 package com.event.blive.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Genre {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String genreName;
-    @ManyToOne
-    private Artist artist;
 
-    public Artist getArtist() {
-        return artist;
-    }
-
-    public void setArtist(Artist artist) {
-        this.artist = artist;
-    }
+    @OneToMany(mappedBy = "genreId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Artist> artists;
 
     public Genre() {
     }
@@ -27,6 +21,7 @@ public class Genre {
         this.id = id;
         this.genreName = genreName;
     }
+
 
     public int getId() {
         return id;

@@ -1,25 +1,19 @@
 package com.event.blive.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity(name = "concert_group")
 public class ConcertGroup {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String name;
 
-    @ManyToOne
-    private Event event;
+    @OneToMany(mappedBy = "concertGroup", cascade = CascadeType.ALL)
+    private List<Event> events;
 
-    public Event getEvent() {
-        return event;
-    }
-
-    public void setEvent(Event event) {
-        this.event = event;
-    }
 
     public ConcertGroup() {}
 
