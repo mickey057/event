@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Artist {
@@ -19,31 +20,26 @@ public class Artist {
     private List<Event> events;
 
 
-    @ManyToOne
-    @JoinColumn(name="genre_id")
-    private Genre genreId;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name="genre_id", nullable = false)
+    private Genre genre;
 
-    public Genre getGenreId() {
-        return genreId;
+    public Genre getGenre() {
+        return genre;
     }
 
-    public void setGenreId(Genre genreId) {
-        this.genreId = genreId;
+    public void setGenre(Genre genre) {
+        this.genre = genre;
     }
 
     public Artist() {
     }
 
-    public Artist(int id, String artistName) {
-        this.id = id;
-        this.artistName = artistName;
-       // this.genreId = genreId;
-    }
 
-    public Artist(int id, String artistName, Genre genreId) {
+    public Artist(int id, String artistName, Genre genre) {
         this.id = id;
         this.artistName = artistName;
-        this.genreId = genreId;
+        this.genre = genre;
     }
 
     public int getId() {

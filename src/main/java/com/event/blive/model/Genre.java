@@ -1,8 +1,12 @@
 package com.event.blive.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.List;
-
+import java.util.Objects;
+import java.util.Set;
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
 public class Genre {
 
@@ -11,8 +15,16 @@ public class Genre {
     private int id;
     private String genreName;
 
-    @OneToMany(mappedBy = "genreId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "genre", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Artist> artists;
+
+    public List<Artist> getArtists() {
+        return artists;
+    }
+
+    public void setArtists(List<Artist> artists) {
+        this.artists = artists;
+    }
 
     public Genre() {
     }
@@ -38,4 +50,6 @@ public class Genre {
     public void setGenreName(String genreName) {
         this.genreName = genreName;
     }
+
+
 }
