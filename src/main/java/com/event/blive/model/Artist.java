@@ -1,11 +1,10 @@
 package com.event.blive.model;
 
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.*;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 public class Artist {
@@ -20,6 +19,7 @@ public class Artist {
     private List<Event> events;
 
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name="genre_id", nullable = false)
     private Genre genre;
